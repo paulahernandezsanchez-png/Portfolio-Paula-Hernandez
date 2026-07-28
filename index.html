@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Alex Rivera — Portfolio · Modo Viaje</title>
+<meta name="description" content="Portfolio personal con estética de app de viajes — proyectos, experiencia y contacto.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ===== SPLASH LOADER ===== -->
+<div id="splash" class="splash">
+  <div class="splash-inner">
+    <div class="splash-badge">
+      <i data-lucide="plane" class="splash-plane"></i>
+    </div>
+    <p class="splash-title">Alex<span>Rivera</span></p>
+    <div class="splash-bar"><span></span></div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- ===== NAVBAR (desktop / top) ===== -->
+<header class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#inicio" class="brand">
+      <span class="brand-icon"><i data-lucide="plane-takeoff"></i></span>
+      Alex<span class="brand-accent">Rivera</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#inicio" class="nav-link active" data-nav>Inicio</a>
+      <a href="#destinos" class="nav-link" data-nav>Destinos</a>
+      <a href="#itinerario" class="nav-link" data-nav>Itinerario</a>
+      <a href="#contacto" class="nav-link" data-nav>Contacto</a>
+    </nav>
+    <a href="#contacto" class="btn btn-primary btn-small nav-cta">
+      <i data-lucide="send"></i> Contactar
+    </a>
+  </div>
+</header>
+
+<!-- ===== BOTTOM TAB BAR (mobile) ===== -->
+<nav class="bottom-nav" id="bottomNav">
+  <a href="#inicio" class="bottom-nav-item active" data-nav>
+    <i data-lucide="home"></i>
+    <span>Inicio</span>
+  </a>
+  <a href="#destinos" class="bottom-nav-item" data-nav>
+    <i data-lucide="compass"></i>
+    <span>Destinos</span>
+  </a>
+  <a href="#itinerario" class="bottom-nav-item" data-nav>
+    <i data-lucide="map"></i>
+    <span>Itinerario</span>
+  </a>
+  <a href="#contacto" class="bottom-nav-item" data-nav>
+    <i data-lucide="send"></i>
+    <span>Contacto</span>
+  </a>
+</nav>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section id="inicio" class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1800&q=70" alt="" class="hero-img">
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-content fade-in">
+    <span class="hero-kicker"><i data-lucide="sparkles"></i> Bienvenido a bordo</span>
+    <h1 class="hero-title">Alex Rivera</h1>
+    <p class="hero-slogan">Diseño y construyo experiencias digitales, un destino a la vez ✈️</p>
+
+    <form class="search-card" id="searchForm">
+      <div class="search-field">
+        <label for="destino"><i data-lucide="map-pin"></i> Destino</label>
+        <input type="text" id="destino" placeholder="¿A dónde vamos?" autocomplete="off">
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label for="fecha-ida"><i data-lucide="calendar"></i> Llegada</label>
+        <input type="date" id="fecha-ida">
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label for="viajeros"><i data-lucide="users"></i> Viajeros</label>
+        <select id="viajeros">
+          <option>1 viajero</option>
+          <option>2 viajeros</option>
+          <option>3+ viajeros</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary search-btn">
+        <i data-lucide="search"></i> <span>Buscar</span>
+      </button>
+    </form>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>+30</strong><span>Proyectos</span></div>
+      <div class="hero-stat"><strong>+5</strong><span>Años de ruta</span></div>
+      <div class="hero-stat"><strong>4.9</strong><span>Valoración</span></div>
+    </div>
+  </div>
+
+  <a href="#destinos" class="scroll-hint" aria-label="Bajar a destinos">
+    <i data-lucide="chevron-down"></i>
+  </a>
+</section>
+
+<!-- ===== DESTINOS = PROYECTOS ===== -->
+<section id="destinos" class="section destinos">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow"><i data-lucide="compass"></i> Explora mis destinos</span>
+      <h2>Proyectos que he recorrido</h2>
+      <p>Una selección de paradas en mi trayectoria como desarrollador — cada proyecto, un destino distinto.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <article class="dest-card fade-in">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=65" alt="Torre Eiffel al atardecer en París">
+          <span class="dest-tag"><i data-lucide="star"></i> 4.9</span>
+        </div>
+        <div class="dest-card-body">
+          <div class="dest-card-title-row">
+            <h3>EcoTrip — Viajes sostenibles</h3>
+            <span class="dest-loc"><i data-lucide="map-pin"></i> París, Francia</span>
+          </div>
+          <p>Plataforma full-stack para reservar experiencias de turismo sostenible. React, Node.js y Stripe, con recomendaciones en tiempo real.</p>
+          <div class="dest-card-tags">
+            <span>React</span><span>Node.js</span><span>MongoDB</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dest-card fade-in">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=65" alt="Pueblo costero de Cinque Terre">
+          <span class="dest-tag dest-tag-featured"><i data-lucide="badge-check"></i> Destacado</span>
+        </div>
+        <div class="dest-card-body">
+          <div class="dest-card-title-row">
+            <h3>Marketplace de Artesanía Local</h3>
+            <span class="dest-loc"><i data-lucide="map-pin"></i> Cinque Terre, Italia</span>
+          </div>
+          <p>E-commerce para artesanos locales con pasarela de pagos, panel de vendedor y sistema de reseñas verificadas.</p>
+          <div class="dest-card-tags">
+            <span>Next.js</span><span>Postgres</span><span>Tailwind</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dest-card fade-in">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=800&q=65" alt="Torre de Gálata al atardecer en Estambul">
+          <span class="dest-tag"><i data-lucide="star"></i> 5.0</span>
+        </div>
+        <div class="dest-card-body">
+          <div class="dest-card-title-row">
+            <h3>Dashboard de Analítica en Vivo</h3>
+            <span class="dest-loc"><i data-lucide="map-pin"></i> Estambul, Turquía</span>
+          </div>
+          <p>Panel de métricas en tiempo real con websockets, gráficas interactivas y alertas configurables para equipos de producto.</p>
+          <div class="dest-card-tags">
+            <span>Vue</span><span>D3.js</span><span>WebSockets</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dest-card fade-in">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=800&q=65" alt="Monte Fuji junto a una pagoda japonesa">
+          <span class="dest-tag"><i data-lucide="star"></i> 4.8</span>
+        </div>
+        <div class="dest-card-body">
+          <div class="dest-card-title-row">
+            <h3>Rediseño UX para Fintech</h3>
+            <span class="dest-loc"><i data-lucide="map-pin"></i> Fujiyoshida, Japón</span>
+          </div>
+          <p>Auditoría e investigación de usuarios que derivó en un rediseño completo del flujo de onboarding, +22% de conversión.</p>
+          <div class="dest-card-tags">
+            <span>Figma</span><span>UX Research</span><span>Design System</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dest-card fade-in">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=800&q=65" alt="Paisaje helado de Islandia">
+          <span class="dest-tag dest-tag-featured"><i data-lucide="badge-check"></i> Destacado</span>
+        </div>
+        <div class="dest-card-body">
+          <div class="dest-card-title-row">
+            <h3>App de Meditación Guiada</h3>
+            <span class="dest-loc"><i data-lucide="map-pin"></i> Reikiavik, Islandia</span>
+          </div>
+          <p>Aplicación móvil híbrida con sesiones offline, seguimiento de hábitos y sonido ambiental adaptativo.</p>
+          <div class="dest-card-tags">
+            <span>React Native</span><span>Firebase</span><span>Audio API</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dest-card fade-in">
+        <div class="dest-card-img">
+          <img src="https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?auto=format&fit=crop&w=800&q=65" alt="Skyline de Nueva York">
+          <span class="dest-tag"><i data-lucide="star"></i> 4.9</span>
+        </div>
+        <div class="dest-card-body">
+          <div class="dest-card-title-row">
+            <h3>Plataforma de Gestión de Eventos</h3>
+            <span class="dest-loc"><i data-lucide="map-pin"></i> Nueva York, EE. UU.</span>
+          </div>
+          <p>Sistema de venta de entradas y check-in con QR, control de aforo en vivo y panel de organizadores.</p>
+          <div class="dest-card-tags">
+            <span>TypeScript</span><span>Express</span><span>Redis</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ITINERARIO = SOBRE MI / EXPERIENCIA ===== -->
+<section id="itinerario" class="section itinerario">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow"><i data-lucide="map"></i> Mi itinerario</span>
+      <h2>El camino recorrido hasta aquí</h2>
+      <p>Cada etapa de mi trayectoria, contada como las paradas de un buen viaje.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-marker">
+          <span class="timeline-day">Día 1</span>
+          <span class="timeline-pin"><i data-lucide="graduation-cap"></i></span>
+        </div>
+        <div class="timeline-card">
+          <span class="timeline-date"><i data-lucide="calendar"></i> 2016 — 2020</span>
+          <h3>Grado en Ingeniería Informática</h3>
+          <p class="timeline-place"><i data-lucide="map-pin"></i> Universidad Politécnica, Madrid</p>
+          <p>Primera parada del viaje: fundamentos de programación, algoritmia y bases de datos que sentaron el rumbo.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-marker">
+          <span class="timeline-day">Día 2</span>
+          <span class="timeline-pin"><i data-lucide="code-2"></i></span>
+        </div>
+        <div class="timeline-card">
+          <span class="timeline-date"><i data-lucide="calendar"></i> 2020</span>
+          <h3>Bootcamp Full Stack Web Development</h3>
+          <p class="timeline-place"><i data-lucide="map-pin"></i> Online</p>
+          <p>Escala rápida en JavaScript moderno, APIs REST y despliegue en la nube — el visado exprés al mundo dev.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-marker">
+          <span class="timeline-day">Día 3</span>
+          <span class="timeline-pin"><i data-lucide="briefcase"></i></span>
+        </div>
+        <div class="timeline-card">
+          <span class="timeline-date"><i data-lucide="calendar"></i> 2021 — 2022</span>
+          <h3>Desarrolladora Frontend Junior</h3>
+          <p class="timeline-place"><i data-lucide="map-pin"></i> Estudio Creativo S.L., Barcelona</p>
+          <p>Construcción de interfaces para clientes de retail y turismo, con foco en accesibilidad y rendimiento.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-marker">
+          <span class="timeline-day">Día 4</span>
+          <span class="timeline-pin"><i data-lucide="server"></i></span>
+        </div>
+        <div class="timeline-card">
+          <span class="timeline-date"><i data-lucide="calendar"></i> 2022 — 2025</span>
+          <h3>Desarrolladora Full Stack</h3>
+          <p class="timeline-place"><i data-lucide="map-pin"></i> Nimbus Tech, Remoto</p>
+          <p>Liderazgo técnico de producto en un equipo de 6 personas, migración a microservicios y mentoría de juniors.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-marker">
+          <span class="timeline-day">Día 5</span>
+          <span class="timeline-pin"><i data-lucide="rocket"></i></span>
+        </div>
+        <div class="timeline-card timeline-card-current">
+          <span class="timeline-date"><i data-lucide="calendar"></i> Actualidad</span>
+          <h3>Freelance &amp; Proyectos Propios</h3>
+          <p class="timeline-place"><i data-lucide="map-pin"></i> Base en algún lugar, disponible en remoto</p>
+          <p>Explorando nuevos destinos: producto propio, colaboraciones freelance y aprendizaje continuo.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESERVA UN CONTACTO ===== -->
+<section id="contacto" class="section contacto">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow"><i data-lucide="send"></i> Reserva un contacto</span>
+      <h2>¿Hablamos de tu próximo proyecto?</h2>
+      <p>Completa el formulario como si reservaras tu próximo vuelo — te responderé en menos de 24h.</p>
+    </div>
+
+    <div class="booking-wrap fade-in">
+      <form class="booking-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nombre"><i data-lucide="user"></i> Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+          </div>
+          <div class="form-field">
+            <label for="email"><i data-lucide="mail"></i> Email</label>
+            <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="asunto"><i data-lucide="briefcase"></i> Tipo de proyecto</label>
+            <select id="asunto" name="asunto">
+              <option>Desarrollo web</option>
+              <option>Diseño de producto</option>
+              <option>Colaboración freelance</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="presupuesto"><i data-lucide="wallet"></i> Presupuesto estimado</label>
+            <select id="presupuesto" name="presupuesto">
+              <option>&lt; 1.000€</option>
+              <option>1.000€ – 5.000€</option>
+              <option>5.000€ +</option>
+              <option>Prefiero comentarlo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="mensaje"><i data-lucide="message-square"></i> Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntame sobre tu proyecto o idea..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large booking-submit">
+          <i data-lucide="send"></i> <span>Enviar mensaje</span>
+        </button>
+        <p class="booking-note"><i data-lucide="shield-check"></i> Tus datos son solo de ejemplo en esta demo — no se envían a ningún sitio.</p>
+      </form>
+
+      <aside class="booking-side">
+        <div class="side-card">
+          <h3><i data-lucide="plane"></i> Aerolíneas asociadas</h3>
+          <p>Encuéntrame también en estas rutas:</p>
+          <div class="partner-list">
+            <a href="#" class="partner-link" aria-label="LinkedIn">
+              <i data-lucide="linkedin"></i> LinkedIn
+            </a>
+            <a href="#" class="partner-link" aria-label="GitHub">
+              <i data-lucide="github"></i> GitHub
+            </a>
+            <a href="#" class="partner-link" aria-label="X / Twitter">
+              <i data-lucide="twitter"></i> X / Twitter
+            </a>
+            <a href="#" class="partner-link" aria-label="Instagram">
+              <i data-lucide="instagram"></i> Instagram
+            </a>
+            <a href="#" class="partner-link" aria-label="Email">
+              <i data-lucide="mail"></i> Email directo
+            </a>
+          </div>
+        </div>
+
+        <div class="side-card side-card-alt">
+          <i data-lucide="badge-check" class="side-alt-icon"></i>
+          <p><strong>Disponibilidad:</strong> abierta a nuevos proyectos a partir de septiembre.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span><i data-lucide="plane-takeoff"></i> Alex Rivera — Portfolio</span>
+    <span class="footer-note">Diseñado con estética de app de viajes · Contenido de ejemplo</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
