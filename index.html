@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Paula Hernández · Portfolio</title>
+<meta name="description" content="Portfolio personal con estilo de app de viajes — proyectos, trayectoria y contacto.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Splash screen -->
+<div id="splash" class="splash">
+  <div class="splash-logo">
+    <i class="fa-solid fa-paper-plane"></i>
+  </div>
+  <p class="splash-text">Preparando tu viaje…</p>
+</div>
+
+<!-- Top navbar (desktop) -->
+<header class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#hero" class="logo">
+      <i class="fa-solid fa-earth-americas"></i>
+      <span>Paula<strong>Travel</strong></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#hero" class="nav-link active" data-nav="hero"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a href="#destinos" class="nav-link" data-nav="destinos"><i class="fa-solid fa-map-location-dot"></i> Destinos</a>
+      <a href="#itinerario" class="nav-link" data-nav="itinerario"><i class="fa-solid fa-route"></i> Itinerario</a>
+      <a href="#contacto" class="nav-link nav-cta" data-nav="contacto"><i class="fa-solid fa-paper-plane"></i> Contactar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 1. HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-bg" style="background-image:url('https://picsum.photos/seed/hero-travel-view/1800/1100');"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content reveal">
+      <span class="hero-eyebrow"><i class="fa-solid fa-plane-departure"></i> Bienvenida a bordo</span>
+      <h1 class="hero-title">Paula Hernández</h1>
+      <p class="hero-subtitle">Diseño y construyo experiencias digitales con la misma ilusión con la que se prepara un viaje — cuidando cada parada del camino.</p>
+
+      <form class="search-card" id="searchForm">
+        <div class="search-field">
+          <i class="fa-solid fa-location-dot"></i>
+          <div class="search-field-text">
+            <label for="destino">Destino</label>
+            <input type="text" id="destino" placeholder="¿A dónde vamos?" autocomplete="off">
+          </div>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <i class="fa-solid fa-calendar-days"></i>
+          <div class="search-field-text">
+            <label for="fecha-ida">Fecha</label>
+            <input type="text" id="fecha-ida" placeholder="Cualquier fecha" autocomplete="off">
+          </div>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <i class="fa-solid fa-user-group"></i>
+          <div class="search-field-text">
+            <label for="viajeros">Viajeros</label>
+            <input type="text" id="viajeros" placeholder="1 proyecto" autocomplete="off">
+          </div>
+        </div>
+        <button type="submit" class="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Buscar</span>
+        </button>
+      </form>
+    </div>
+
+    <a href="#destinos" class="scroll-hint" aria-label="Ir a destinos">
+      <i class="fa-solid fa-chevron-down"></i>
+    </a>
+  </section>
+
+  <!-- 2. DESTINOS / PROYECTOS -->
+  <section id="destinos" class="section">
+    <div class="section-inner">
+      <div class="section-heading reveal">
+        <span class="section-kicker"><i class="fa-solid fa-suitcase-rolling"></i> Explora mis destinos</span>
+        <h2>Proyectos que he construido</h2>
+        <p>Cada proyecto es una parada distinta: nuevas herramientas, nuevos retos y algún que otro souvenir de aprendizaje. Estos son algunos destinos ficticios de ejemplo mientras preparo el contenido definitivo.</p>
+      </div>
+
+      <div class="card-grid">
+
+        <article class="dest-card reveal">
+          <div class="dest-card-img" style="background-image:url('https://picsum.photos/seed/aurora-travel-app/700/500');">
+            <span class="badge badge-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Aurora Travel App</h3>
+              <span class="dest-tag"><i class="fa-solid fa-location-dot"></i> App móvil · UI/UX</span>
+            </div>
+            <p>Lorem ipsum: rediseño de una app de itinerarios de viaje, con reserva de rutas y mapas interactivos offline.</p>
+            <div class="dest-chips">
+              <span>Figma</span><span>Swift UI</span><span>Design System</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dest-card reveal">
+          <div class="dest-card-img" style="background-image:url('https://picsum.photos/seed/nimbus-dashboard/700/500');">
+            <span class="badge badge-featured"><i class="fa-solid fa-bolt"></i> Destacado</span>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Nimbus Dashboard</h3>
+              <span class="dest-tag"><i class="fa-solid fa-location-dot"></i> Web app · Frontend</span>
+            </div>
+            <p>Lorem ipsum: panel de control para agencias de viajes con métricas en tiempo real y gráficos personalizables.</p>
+            <div class="dest-chips">
+              <span>React</span><span>Chart.js</span><span>REST API</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dest-card reveal">
+          <div class="dest-card-img" style="background-image:url('https://picsum.photos/seed/voyage-booking/700/500');">
+            <span class="badge badge-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Voyage Booking</h3>
+              <span class="dest-tag"><i class="fa-solid fa-location-dot"></i> E-commerce · Full Stack</span>
+            </div>
+            <p>Lorem ipsum: plataforma de reservas de vuelos y hoteles con pasarela de pago simulada y comparador de precios.</p>
+            <div class="dest-chips">
+              <span>Node.js</span><span>PostgreSQL</span><span>Stripe</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dest-card reveal">
+          <div class="dest-card-img" style="background-image:url('https://picsum.photos/seed/compass-portfolio/700/500');">
+            <span class="badge badge-rating"><i class="fa-solid fa-star"></i> 5.0</span>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Compass Portfolio</h3>
+              <span class="dest-tag"><i class="fa-solid fa-location-dot"></i> Branding · Landing page</span>
+            </div>
+            <p>Lorem ipsum: identidad visual y landing page para un estudio de fotografía de viajes, con animaciones suaves.</p>
+            <div class="dest-chips">
+              <span>Branding</span><span>CSS</span><span>GSAP</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dest-card reveal">
+          <div class="dest-card-img" style="background-image:url('https://picsum.photos/seed/skyline-analytics/700/500');">
+            <span class="badge badge-featured"><i class="fa-solid fa-bolt"></i> Destacado</span>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Skyline Analytics</h3>
+              <span class="dest-tag"><i class="fa-solid fa-location-dot"></i> Data viz · React</span>
+            </div>
+            <p>Lorem ipsum: visualización de rutas aéreas y tendencias de ocupación turística a partir de datos abiertos.</p>
+            <div class="dest-chips">
+              <span>D3.js</span><span>React</span><span>Open Data</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dest-card reveal">
+          <div class="dest-card-img" style="background-image:url('https://picsum.photos/seed/wander-cms/700/500');">
+            <span class="badge badge-rating"><i class="fa-solid fa-star"></i> 4.7</span>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Wander CMS</h3>
+              <span class="dest-tag"><i class="fa-solid fa-location-dot"></i> CMS · Node.js</span>
+            </div>
+            <p>Lorem ipsum: gestor de contenido a medida para blogs de viajes, con editor de itinerarios y galerías.</p>
+            <div class="dest-chips">
+              <span>Express</span><span>MongoDB</span><span>EJS</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ITINERARIO / SOBRE MÍ -->
+  <section id="itinerario" class="section section-alt">
+    <div class="section-inner">
+      <div class="section-heading reveal">
+        <span class="section-kicker"><i class="fa-solid fa-route"></i> Mi itinerario</span>
+        <h2>Mi trayectoria, parada a parada</h2>
+        <p>Un pequeño resumen de mi viaje profesional hasta ahora — datos de ejemplo mientras termino de escribir el contenido real.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"><i class="fa-solid fa-map-pin"></i></div>
+          <div class="timeline-card">
+            <span class="timeline-day">Día 1 · 2018 — 2020</span>
+            <h3>Grado en Ingeniería Informática</h3>
+            <p class="timeline-place"><i class="fa-solid fa-graduation-cap"></i> Universidad Ficticia de Ejemplo</p>
+            <p>Lorem ipsum dolor sit amet: primeros pasos en programación, estructuras de datos y desarrollo web.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"><i class="fa-solid fa-map-pin"></i></div>
+          <div class="timeline-card">
+            <span class="timeline-day">Día 2 · 2020 — 2021</span>
+            <h3>Especialización en Diseño UX/UI</h3>
+            <p class="timeline-place"><i class="fa-solid fa-graduation-cap"></i> Escuela de Diseño de Muestra</p>
+            <p>Lorem ipsum dolor sit amet: aprendizaje de investigación de usuarios, prototipado y sistemas de diseño.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"><i class="fa-solid fa-map-pin"></i></div>
+          <div class="timeline-card">
+            <span class="timeline-day">Día 3 · 2021 — 2023</span>
+            <h3>Desarrolladora Frontend Junior</h3>
+            <p class="timeline-place"><i class="fa-solid fa-briefcase"></i> Empresa Ejemplo S.L.</p>
+            <p>Lorem ipsum dolor sit amet: desarrollo de interfaces responsive y colaboración con equipos de producto.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"><i class="fa-solid fa-map-pin"></i></div>
+          <div class="timeline-card">
+            <span class="timeline-day">Día 4 · 2023 — Presente</span>
+            <h3>Desarrolladora Frontend</h3>
+            <p class="timeline-place"><i class="fa-solid fa-briefcase"></i> Estudio Digital de Muestra</p>
+            <p>Lorem ipsum dolor sit amet: liderazgo de proyectos, mentoría y construcción de productos a medida.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-marker timeline-marker-next"><i class="fa-solid fa-plane"></i></div>
+          <div class="timeline-card timeline-card-next">
+            <span class="timeline-day">Próximo destino</span>
+            <h3>¿Nos vamos de viaje juntos?</h3>
+            <p>Lorem ipsum dolor sit amet: buscando el siguiente reto. Hablemos de tu proyecto.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CONTACTO -->
+  <section id="contacto" class="section">
+    <div class="section-inner">
+      <div class="section-heading reveal">
+        <span class="section-kicker"><i class="fa-solid fa-ticket"></i> Reserva un contacto</span>
+        <h2>Hablemos de tu próximo proyecto</h2>
+        <p>Rellena el formulario como si reservaras tu próximo vuelo — te responderé lo antes posible.</p>
+      </div>
+
+      <div class="contact-wrap">
+        <form class="booking-form reveal" id="contactForm">
+
+          <div class="form-row">
+            <div class="form-field">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="name" placeholder="Nombre completo" required>
+            </div>
+            <div class="form-field">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" id="email" placeholder="Correo electrónico" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <i class="fa-solid fa-tag"></i>
+              <select id="subject" required>
+                <option value="" disabled selected>Motivo del viaje…</option>
+                <option value="proyecto">Nuevo proyecto</option>
+                <option value="colaboracion">Colaboración</option>
+                <option value="empleo">Oferta de empleo</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <i class="fa-solid fa-calendar-check"></i>
+              <input type="text" id="date" placeholder="Fecha estimada (opcional)">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field form-field-textarea">
+              <i class="fa-solid fa-message"></i>
+              <textarea id="message" rows="4" placeholder="Cuéntame los detalles de tu viaje (o proyecto)…" required></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="book-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Enviar mensaje</span>
+          </button>
+
+          <p class="form-confirm" id="formConfirm">
+            <i class="fa-solid fa-circle-check"></i> ¡Mensaje enviado! Despegaré a responderte muy pronto.
+          </p>
+        </form>
+
+        <aside class="airlines reveal">
+          <h3>Aerolíneas asociadas</h3>
+          <p>Sígueme también en estas rutas:</p>
+          <div class="airline-list">
+            <a href="#" class="airline-link"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+            <a href="#" class="airline-link"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="#" class="airline-link"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
+            <a href="#" class="airline-link"><i class="fa-solid fa-envelope"></i> Email</a>
+          </div>
+          <div class="boarding-pass">
+            <div class="boarding-pass-row">
+              <span>DE</span>
+              <strong>IDEA</strong>
+            </div>
+            <div class="boarding-pass-icon"><i class="fa-solid fa-plane"></i></div>
+            <div class="boarding-pass-row">
+              <span>A</span>
+              <strong>REALIDAD</strong>
+            </div>
+            <div class="boarding-pass-barcode"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Paula Hernández — Portfolio de ejemplo, contenido ficticio con temática de viajes.</p>
+  </footer>
+</main>
+
+<!-- Bottom tab bar (mobile) -->
+<nav class="tab-bar" id="tabBar">
+  <a href="#hero" class="tab-link active" data-nav="hero">
+    <i class="fa-solid fa-house"></i>
+    <span>Inicio</span>
+  </a>
+  <a href="#destinos" class="tab-link" data-nav="destinos">
+    <i class="fa-solid fa-map-location-dot"></i>
+    <span>Destinos</span>
+  </a>
+  <a href="#itinerario" class="tab-link" data-nav="itinerario">
+    <i class="fa-solid fa-route"></i>
+    <span>Itinerario</span>
+  </a>
+  <a href="#contacto" class="tab-link" data-nav="contacto">
+    <i class="fa-solid fa-paper-plane"></i>
+    <span>Contacto</span>
+  </a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/script.js" defer></script>
+</body>
+</html>
