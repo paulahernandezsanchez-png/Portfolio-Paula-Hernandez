@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Paula Hernández · Portfolio</title>
+<meta name="description" content="Portfolio personal de Paula Hernández con estética de app de viajes" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css" />
+
+<!-- Lucide Icons (ligera, vía CDN) -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+</head>
+<body>
+
+<!-- ============ SPLASH / LOADER ============ -->
+<div class="splash" id="splash">
+  <div class="splash-logo">
+    <i data-lucide="plane" class="splash-plane"></i>
+  </div>
+  <p class="splash-text">Preparando tu viaje…</p>
+</div>
+
+<!-- ============ FAKE STATUS BAR (móvil / marco app) ============ -->
+<div class="status-bar" id="statusBar">
+  <span class="status-time" id="statusTime">9:41</span>
+  <div class="status-icons">
+    <i data-lucide="signal"></i>
+    <i data-lucide="wifi"></i>
+    <i data-lucide="battery-full"></i>
+  </div>
+</div>
+
+<!-- ============ NAVBAR (desktop top / mobile bottom) ============ -->
+<nav class="navbar" id="navbar">
+  <a href="#inicio" class="nav-logo">
+    <i data-lucide="compass"></i>
+    <span>Paula<strong>.travel</strong></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#inicio" class="nav-link active" data-target="inicio"><i data-lucide="home"></i><span>Inicio</span></a></li>
+    <li><a href="#destinos" class="nav-link" data-target="destinos"><i data-lucide="map-pin"></i><span>Destinos</span></a></li>
+    <li><a href="#itinerario" class="nav-link" data-target="itinerario"><i data-lucide="route"></i><span>Itinerario</span></a></li>
+    <li><a href="#contacto" class="nav-link" data-target="contacto"><i data-lucide="send"></i><span>Contacto</span></a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ============ 1. HERO / PORTADA ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80" alt="Paisaje de montañas al atardecer" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content reveal">
+      <span class="hero-kicker"><i data-lucide="sparkles"></i> Bienvenido/a a bordo</span>
+      <h1 class="hero-title">Paula Hernández</h1>
+      <p class="hero-subtitle">Diseño y construyo experiencias digitales con la misma pasión con la que planeo un viaje: con cuidado, curiosidad y ganas de sorprender.</p>
+
+      <!-- Buscador falso estilo app de viajes -->
+      <form class="search-card" id="fakeSearch">
+        <div class="search-field">
+          <i data-lucide="map-pin"></i>
+          <div class="search-field-text">
+            <label for="destino">¿A dónde vamos?</label>
+            <input type="text" id="destino" placeholder="Explora mi trabajo" />
+          </div>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <i data-lucide="calendar"></i>
+          <div class="search-field-text">
+            <label for="fecha">¿Cuándo?</label>
+            <input type="text" id="fecha" placeholder="Ahora mismo" />
+          </div>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <i data-lucide="users"></i>
+          <div class="search-field-text">
+            <label for="viajeros">Perfil</label>
+            <input type="text" id="viajeros" placeholder="1 reclutador, con ganas" />
+          </div>
+        </div>
+        <button type="submit" class="search-btn">
+          <i data-lucide="search"></i>
+          <span>Buscar</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="scroll-hint">
+      <i data-lucide="chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ============ 2. EXPLORA MIS DESTINOS = PROYECTOS ============ -->
+  <section class="section" id="destinos">
+    <div class="section-header reveal">
+      <span class="section-kicker"><i data-lucide="compass"></i> Explora mis destinos</span>
+      <h2 class="section-title">Proyectos que he recorrido</h2>
+      <p class="section-subtitle">Una selección de paradas en mi trayectoria como desarrolladora. Contenido de ejemplo — próximamente con mis proyectos reales.</p>
+    </div>
+
+    <div class="cards-grid">
+
+      <article class="card reveal">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" alt="Mapa, cámara y cuaderno de viaje preparados sobre la mesa" />
+          <span class="card-badge featured"><i data-lucide="star"></i> Proyecto destacado</span>
+          <button class="card-fav" aria-label="Guardar"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>App EcoTrip — Planifica tu ruta</h3>
+            <span class="card-rating"><i data-lucide="star"></i> 4.9</span>
+          </div>
+          <p class="card-desc">Lorem ipsum dolor sit amet: aplicación de reservas sostenibles con recomendaciones personalizadas de itinerarios.</p>
+          <div class="card-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=800&q=80" alt="Excursionista con mochila frente a un lago de montaña" />
+          <span class="card-badge"><i data-lucide="star"></i> 4.8</span>
+          <button class="card-fav" aria-label="Guardar"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Panel Summit Analytics</h3>
+            <span class="card-rating"><i data-lucide="star"></i> 4.8</span>
+          </div>
+          <p class="card-desc">Dashboard de datos en tiempo real para equipos remotos, con visualizaciones interactivas y alertas inteligentes.</p>
+          <div class="card-tags">
+            <span class="tag">Vue</span>
+            <span class="tag">D3.js</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80" alt="Taj Mahal al atardecer, en Agra" />
+          <span class="card-badge featured"><i data-lucide="star"></i> Proyecto destacado</span>
+          <button class="card-fav" aria-label="Guardar"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Agra Booking Platform</h3>
+            <span class="card-rating"><i data-lucide="star"></i> 5.0</span>
+          </div>
+          <p class="card-desc">Plataforma de reservas de experiencias culturales con checkout optimizado y sistema de pagos seguro.</p>
+          <div class="card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Stripe</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Playa turquesa" />
+          <span class="card-badge"><i data-lucide="star"></i> 4.7</span>
+          <button class="card-fav" aria-label="Guardar"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Coral Store E-commerce</h3>
+            <span class="card-rating"><i data-lucide="star"></i> 4.7</span>
+          </div>
+          <p class="card-desc">Tienda online headless con carrito persistente, filtros dinámicos y una experiencia de compra fluida.</p>
+          <div class="card-tags">
+            <span class="tag">Shopify</span>
+            <span class="tag">GraphQL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80" alt="Escalinata blanca con vistas al mar Egeo en Santorini" />
+          <span class="card-badge"><i data-lucide="star"></i> 4.9</span>
+          <button class="card-fav" aria-label="Guardar"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Santorini Design System</h3>
+            <span class="card-rating"><i data-lucide="star"></i> 4.9</span>
+          </div>
+          <p class="card-desc">Librería de componentes reutilizables con documentación viva, pensada para escalar producto rápido.</p>
+          <div class="card-tags">
+            <span class="tag">Storybook</span>
+            <span class="tag">CSS</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Torre Eiffel junto al Sena al atardecer" />
+          <span class="card-badge featured"><i data-lucide="star"></i> Proyecto destacado</span>
+          <button class="card-fav" aria-label="Guardar"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Aurora Travel App</h3>
+            <span class="card-rating"><i data-lucide="star"></i> 4.9</span>
+          </div>
+          <p class="card-desc">App móvil de itinerarios colaborativos con mapas offline y recomendaciones basadas en preferencias.</p>
+          <div class="card-tags">
+            <span class="tag">React Native</span>
+            <span class="tag">Firebase</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ 3. MI ITINERARIO = SOBRE MÍ / EXPERIENCIA ============ -->
+  <section class="section section-alt" id="itinerario">
+    <div class="section-header reveal">
+      <span class="section-kicker"><i data-lucide="route"></i> Mi itinerario</span>
+      <h2 class="section-title">El viaje hasta aquí</h2>
+      <p class="section-subtitle">Cada etapa ha sido una parada distinta en el mapa. Esta es, a grandes rasgos, mi ruta profesional.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"><i data-lucide="graduation-cap"></i></div>
+        <div class="timeline-content">
+          <span class="timeline-day">Día 1 · Origen</span>
+          <h3>Formación en Desarrollo Web</h3>
+          <span class="timeline-place"><i data-lucide="map-pin"></i> Universidad Ejemplo, Madrid</span>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Primeros pasos en programación, diseño de interfaces y fundamentos de ingeniería de software.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"><i data-lucide="briefcase"></i></div>
+        <div class="timeline-content">
+          <span class="timeline-day">Día 2 · Escala</span>
+          <h3>Prácticas como Desarrolladora Frontend</h3>
+          <span class="timeline-place"><i data-lucide="map-pin"></i> Estudio Creativo Ejemplo</span>
+          <p>Ut enim ad minim veniam: primeras contribuciones en producción, trabajo en equipo ágil y aprendizaje acelerado en un entorno real.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"><i data-lucide="rocket"></i></div>
+        <div class="timeline-content">
+          <span class="timeline-day">Día 3 · Destino actual</span>
+          <h3>Desarrolladora Full-Stack</h3>
+          <span class="timeline-place"><i data-lucide="map-pin"></i> Empresa Ejemplo S.L.</span>
+          <p>Duis aute irure dolor in reprehenderit: diseño y desarrollo de producto de punta a punta, desde la idea hasta el despliegue.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"><i data-lucide="flag"></i></div>
+        <div class="timeline-content">
+          <span class="timeline-day">Día 4 · Próxima parada</span>
+          <h3>Nuevos retos por explorar</h3>
+          <span class="timeline-place"><i data-lucide="map-pin"></i> Por definir — quizás contigo</span>
+          <p>Excepteur sint occaecat cupidatat non proident: siempre con las maletas medio hechas, lista para el siguiente proyecto interesante.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 4. RESERVA UN CONTACTO = CONTACTO ============ -->
+  <section class="section" id="contacto">
+    <div class="section-header reveal">
+      <span class="section-kicker"><i data-lucide="send"></i> Reserva un contacto</span>
+      <h2 class="section-title">¿Hablamos de tu próximo proyecto?</h2>
+      <p class="section-subtitle">Completa el formulario como si reservaras tu próximo vuelo. Te responderé lo antes posible.</p>
+    </div>
+
+    <div class="booking-wrapper reveal">
+
+      <form class="booking-card" id="contactForm">
+        <div class="boarding-notch notch-left"></div>
+        <div class="boarding-notch notch-right"></div>
+
+        <div class="booking-row">
+          <div class="input-group">
+            <i data-lucide="user"></i>
+            <div class="input-group-text">
+              <label for="nombre">Nombre del pasajero</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <i data-lucide="mail"></i>
+            <div class="input-group-text">
+              <label for="email">Email de contacto</label>
+              <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-row">
+          <div class="input-group">
+            <i data-lucide="briefcase"></i>
+            <div class="input-group-text">
+              <label for="asunto">Motivo del viaje</label>
+              <input type="text" id="asunto" name="asunto" placeholder="Ej. Propuesta de colaboración" />
+            </div>
+          </div>
+          <div class="input-group">
+            <i data-lucide="calendar-clock"></i>
+            <div class="input-group-text">
+              <label for="fechaContacto">Fecha preferida</label>
+              <input type="text" id="fechaContacto" name="fechaContacto" placeholder="Lo antes posible" />
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group input-group-full">
+          <i data-lucide="message-square"></i>
+          <div class="input-group-text">
+            <label for="mensaje">Mensaje de a bordo</label>
+            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntame en qué estás pensando…" required></textarea>
+          </div>
+        </div>
+
+        <div class="dashed-divider"></div>
+
+        <button type="submit" class="booking-btn">
+          <i data-lucide="send"></i>
+          <span>Enviar mensaje</span>
+        </button>
+        <p class="booking-note" id="formNote">Este formulario es una demo — aún no envía mensajes de verdad.</p>
+      </form>
+
+      <div class="airlines-card">
+        <h3>Aerolíneas asociadas</h3>
+        <p>Sígueme también en estas rutas</p>
+        <div class="airlines-grid">
+          <a href="#" class="airline-link"><i data-lucide="linkedin"></i><span>LinkedIn</span></a>
+          <a href="#" class="airline-link"><i data-lucide="github"></i><span>GitHub</span></a>
+          <a href="#" class="airline-link"><i data-lucide="twitter"></i><span>Twitter / X</span></a>
+          <a href="#" class="airline-link"><i data-lucide="instagram"></i><span>Instagram</span></a>
+          <a href="#" class="airline-link"><i data-lucide="mail"></i><span>Email directo</span></a>
+          <a href="#" class="airline-link"><i data-lucide="file-text"></i><span>Descargar CV</span></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><i data-lucide="plane-takeoff"></i> Paula Hernández · Portfolio de ejemplo · 2026</p>
+</footer>
+
+<!-- Toast de confirmación -->
+<div class="toast" id="toast">
+  <i data-lucide="check-circle"></i>
+  <span id="toastText">Mensaje enviado</span>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
