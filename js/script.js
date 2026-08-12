@@ -80,11 +80,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- Booking / contact form ---------------- */
   const contactForm = document.getElementById('contactForm');
+  const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/paula.hernandez.sanchez@gmail.com';
+
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      showToast('Mensaje enviado (simulado) — ¡gracias por escribir!');
-      contactForm.reset();
+
+      const submitBtn = contactForm.querySelector('.booking-submit');
+      const submitLabel = submitBtn ? submitBtn.querySelector('span') : null;
+      const originalLabel = submitLabel ? submitLabel.textContent : '';
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitLabel) submitLabel.textContent = 'Enviando…';
+
+      try {
+        const response = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(contactForm),
+        });
+
+        if (!response.ok) throw new Error('Request failed');
+
+        showToast('✈️ ¡Mensaje enviado! Te responderé en menos de 24h.');
+        contactForm.reset();
+      } catch (err) {
+        showToast('No se ha podido enviar. Escríbeme mejor por email o WhatsApp — abajo tienes los enlaces.');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitLabel) submitLabel.textContent = originalLabel;
+      }
     });
   }
 
