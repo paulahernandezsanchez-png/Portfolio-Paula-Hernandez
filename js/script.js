@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   revealEls.forEach((el) => revealObserver.observe(el));
 
   /* ---------------- Scroll-spy (navbar + bottom nav) ---------------- */
-  const sectionIds = ['inicio', 'destinos', 'itinerario', 'contacto'];
+  const sectionIds = ['inicio', 'destinos', 'itinerario', 'equipaje', 'contacto'];
   const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
   const navEls = document.querySelectorAll('[data-nav]');
 

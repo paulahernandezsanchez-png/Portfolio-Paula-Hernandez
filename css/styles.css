@@ -498,6 +498,35 @@ svg[data-lucide], i[data-lucide] { display: inline-block; vertical-align: middle
 .timeline-place svg, .timeline-place i { width: 13px; height: 13px; }
 .timeline-card p:not(.timeline-place) { font-size: 0.92rem; line-height: 1.55; }
 
+/* ================= Equipaje / skills ================= */
+.gear-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 0 20px; }
+.gear-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.gear-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.gear-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sky-light);
+  color: var(--sky-dark);
+}
+.gear-card-icon svg, .gear-card-icon i { width: 20px; height: 20px; }
+.gear-card:nth-child(even) .gear-card-icon { background: var(--coral-light); color: var(--coral-dark); }
+.gear-card h3 { font-size: 1.05rem; font-weight: 700; }
+.gear-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.gear-tags span { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 999px; background: var(--bg-alt); color: var(--ink); }
+
 /* ================= Contact / booking form ================= */
 .booking-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: start; padding: 0 20px; }
 
@@ -817,6 +846,7 @@ svg[data-lucide], i[data-lucide] { display: inline-block; vertical-align: middle
 /* ================= Responsive ================= */
 @media (max-width: 900px) {
   .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .gear-grid { grid-template-columns: repeat(2, 1fr); }
   .booking-wrap { grid-template-columns: 1fr; }
   .project-media { grid-template-columns: 1fr; }
   .project-media-img { aspect-ratio: 16 / 9; }
@@ -840,6 +870,7 @@ svg[data-lucide], i[data-lucide] { display: inline-block; vertical-align: middle
   .hero-stats { gap: 18px; }
 
   .card-grid { grid-template-columns: 1fr; padding: 0 16px; }
+  .gear-grid { grid-template-columns: 1fr; padding: 0 16px; }
 
   .section { padding: 70px 0; }
   .section-head { margin-bottom: 40px; }
