@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Parador Match · WTM 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --oro:#c9a84c;
+  --oro-palido:#e8d5a3;
+  --verde-oscuro:#1a3a1f;
+  --verde-medio:#2d6a35;
+  --verde-brillo:#4a9454;
+  --oscuro:#0d1a0f;
+  --crema:#f4ede0;
+  --piedra:#8a7a6a;
+}
+
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  background:#0d1a0f;
+  font-family:'Lato',sans-serif;
+  cursor:none;
+}
+
+/* ── CURSOR PERSONALIZADO ── */
+#cursor{
+  position:fixed;width:12px;height:12px;
+  border:1.5px solid var(--oro);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transition:transform .15s ease,opacity .15s;
+  transform:translate(-50%,-50%);
+}
+#cursor-trail{
+  position:fixed;width:40px;height:40px;
+  border:0.5px solid rgba(201,168,76,.25);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transition:transform .4s ease;
+  transform:translate(-50%,-50%);
+}
+
+/* ── FONDO ANIMADO ── */
+#bg-canvas{
+  position:fixed;inset:0;z-index:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 20%, #1a3a1f 0%, #0a1a0c 50%, #060e07 100%);
+}
+
+.particles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.particle{
+  position:absolute;border-radius:50%;
+  animation:floatParticle linear infinite;
+  opacity:0;
+}
+@keyframes floatParticle{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+  10%{opacity:1}
+  90%{opacity:.4}
+  100%{transform:translateY(-20vh) rotate(360deg);opacity:0}
+}
+
+/* ── LÍNEAS DECORATIVAS DIAGONALES ── */
+.deco-lines{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(
+    -55deg,
+    transparent,transparent 80px,
+    rgba(201,168,76,.015) 80px,
+    rgba(201,168,76,.015) 81px
+  );
+}
+
+/* ── CONTENEDOR PRINCIPAL ── */
+#app{
+  position:relative;z-index:10;
+  width:100%;height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+
+/* ── PANEL CENTRAL ── */
+.panel{
+  width:100%;max-width:680px;
+  position:relative;
+  animation:panelEntrada .8s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes panelEntrada{
+  from{opacity:0;transform:translateY(30px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ── CABECERA FIJA ── */
+.cabecera{
+  text-align:center;margin-bottom:32px;
+  position:relative;
+}
+.logo-escudo{
+  font-family:'Cinzel',serif;
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--oro);opacity:.7;margin-bottom:8px;
+}
+.titulo-app{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,4vw,38px);
+  font-weight:300;
+  color:var(--crema);
+  letter-spacing:2px;
+  line-height:1.1;
+}
+.titulo-app em{
+  font-style:italic;color:var(--oro);font-weight:400;
+}
+.subtitulo-app{
+  font-family:'Lato',sans-serif;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(244,237,224,.4);margin-top:10px;
+}
+
+/* ── BARRA DE PROGRESO ÉPICA ── */
+.progreso-wrap{
+  width:100%;margin-bottom:28px;position:relative;
+  display:flex;align-items:center;gap:12px;
+}
+.progreso-label{
+  font-family:'Cinzel',serif;font-size:11px;
+  color:var(--oro);white-space:nowrap;letter-spacing:1px;
+}
+.progreso-track{
+  flex:1;height:2px;
+  background:rgba(201,168,76,.15);
+  border-radius:1px;position:relative;overflow:hidden;
+}
+.progreso-fill{
+  height:100%;background:var(--oro);
+  border-radius:1px;
+  transition:width .6s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.progreso-fill::after{
+  content:'';position:absolute;right:0;top:-2px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--oro);
+  box-shadow:0 0 8px var(--oro);
+}
+
+/* ── TARJETA DE PREGUNTA ── */
+.tarjeta-pregunta{
+  background:rgba(10,20,12,.7);
+  border:0.5px solid rgba(201,168,76,.2);
+  border-radius:16px;
+  padding:36px 40px;
+  backdrop-filter:blur(20px);
+  position:relative;overflow:hidden;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(201,168,76,.1);
+}
+.tarjeta-pregunta::before{
+  content:'';position:absolute;
+  top:-1px;left:60px;right:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--oro),transparent);
+}
+.tarjeta-pregunta::after{
+  content:'';position:absolute;
+  inset:0;border-radius:16px;
+  background:radial-gradient(ellipse 60% 40% at 50% -20%,rgba(201,168,76,.04),transparent);
+  pointer-events:none;
+}
+
+.num-pregunta{
+  font-family:'Cinzel',serif;
+  font-size:64px;font-weight:700;
+  color:rgba(201,168,76,.06);
+  position:absolute;top:20px;right:32px;
+  line-height:1;letter-spacing:-2px;
+  user-select:none;
+}
+.texto-pregunta{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px,2.5vw,24px);
+  font-weight:400;
+  color:var(--crema);
+  line-height:1.4;
+  margin-bottom:28px;
+  position:relative;z-index:1;
+}
+
+/* ── OPCIONES ── */
+.opciones-grid{
+  display:grid;gap:10px;
+  position:relative;z-index:1;
+}
+
+.boton-opcion{
+  position:relative;overflow:hidden;
+  background:rgba(26,58,31,.4);
+  border:0.5px solid rgba(201,168,76,.2);
+  border-radius:10px;
+  padding:16px 20px 16px 48px;
+  color:var(--crema);
+  font-family:'Lato',sans-serif;
+  font-size:15px;font-weight:300;
+  text-align:left;cursor:none;
+  transition:border-color .2s,background .2s;
+  letter-spacing:.3px;
+  -webkit-tap-highlight-color:transparent;
+}
+.boton-opcion::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(90deg,rgba(201,168,76,.12),transparent);
+  transition:width .4s ease;
+  border-radius:10px 0 0 10px;
+}
+.boton-opcion:hover{
+  border-color:rgba(201,168,76,.5);
+  background:rgba(26,58,31,.6);
+}
+.boton-opcion:hover::before{width:100%}
+.boton-opcion:hover .opt-marker{background:var(--oro);color:#0d1a0f}
+
+.opt-marker{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border-radius:50%;
+  border:1px solid rgba(201,168,76,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:10px;
+  color:var(--oro);
+  transition:background .2s,color .2s,border-color .2s;
+}
+
+/* ESTADO ELEGIDO */
+.opcion-elegida{
+  border-color:var(--oro) !important;
+  background:rgba(201,168,76,.12) !important;
+}
+.opcion-elegida .opt-marker{
+  background:var(--oro);color:#0d1a0f;border-color:var(--oro);
+}
+.opcion-elegida::before{width:100% !important}
+
+/* ESTADO RECHAZADO - animación de caída */
+@keyframes caerYDesvanecerse{
+  0%{transform:translateX(0) rotate(0deg);opacity:1}
+  30%{transform:translateX(-8px) rotate(-2deg);opacity:.8}
+  100%{transform:translateX(120%) rotate(8deg);opacity:0}
+}
+.opcion-rechazada{
+  animation:caerYDesvanecerse .5s cubic-bezier(.4,0,1,1) forwards;
+  pointer-events:none;
+}
+
+/* ── TRANSICIÓN DE PANTALLA ── */
+@keyframes slideOutLeft{
+  from{opacity:1;transform:translateX(0) scale(1)}
+  to{opacity:0;transform:translateX(-60px) scale(.96)}
+}
+@keyframes slideInRight{
+  from{opacity:0;transform:translateX(60px) scale(.96)}
+  to{opacity:1;transform:translateX(0) scale(1)}
+}
+.slide-out{animation:slideOutLeft .35s cubic-bezier(.4,0,.6,1) forwards}
+.slide-in{animation:slideInRight .45s cubic-bezier(.16,1,.3,1) forwards}
+
+/* ── PANTALLA DE RESULTADO ── */
+@keyframes revelarResultado{
+  0%{opacity:0;transform:translateY(40px) scale(.95)}
+  60%{transform:translateY(-4px) scale(1.01)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.resultado-container{
+  animation:revelarResultado .8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.resultado-badge{
+  font-family:'Cinzel',serif;
+  font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--oro);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.resultado-badge::before,.resultado-badge::after{
+  content:'';flex:1;height:0.5px;background:rgba(201,168,76,.3);
+}
+
+.resultado-imagen-wrap{
+  position:relative;width:100%;height:220px;
+  border-radius:12px;overflow:hidden;
+  margin-bottom:20px;
+  border:0.5px solid rgba(201,168,76,.2);
+}
+.resultado-imagen-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,20,12,.8) 0%,transparent 50%);
+}
+.resultado-img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  animation:kenBurns 12s ease-out forwards;
+}
+@keyframes kenBurns{
+  from{transform:scale(1.06)}
+  to{transform:scale(1)}
+}
+.resultado-img-fallback{
+  width:100%;height:100%;
+  background:radial-gradient(ellipse at center,#1a3a1f,#0a1a0c);
+  display:flex;align-items:center;justify-content:center;
+  font-size:60px;
+}
+
+.resultado-nombre-wrap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:16px 20px;z-index:2;
+}
+.resultado-nombre{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,3vw,30px);
+  font-weight:600;
+  color:#fff;
+  letter-spacing:.5px;
+  text-shadow:0 2px 12px rgba(0,0,0,.8);
+}
+
+.resultado-body{
+  padding:0 4px;
+}
+.resultado-etiqueta{
+  display:inline-block;
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--oro);border:0.5px solid rgba(201,168,76,.3);
+  padding:4px 10px;border-radius:2px;margin-bottom:12px;
+}
+.resultado-desc{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;font-weight:300;font-style:italic;
+  color:rgba(244,237,224,.7);line-height:1.6;margin-bottom:20px;
+}
+
+.resultado-acciones{
+  display:flex;gap:10px;flex-wrap:wrap;
+}
+.btn-reiniciar{
+  flex:1;
+  background:var(--oro);color:#0d1a0f;
+  border:none;border-radius:8px;
+  padding:14px 20px;
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:none;font-weight:600;
+  transition:background .2s,transform .15s;
+}
+.btn-reiniciar:hover{background:var(--oro-palido);transform:translateY(-1px)}
+.btn-info{
+  padding:14px 20px;
+  background:transparent;
+  border:0.5px solid rgba(201,168,76,.3);
+  border-radius:8px;
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--oro);cursor:none;
+  transition:border-color .2s,background .2s;
+}
+.btn-info:hover{background:rgba(201,168,76,.08);border-color:var(--oro)}
+
+.nota-feria{
+  margin-top:16px;
+  font-size:11px;letter-spacing:1px;
+  color:rgba(244,237,224,.3);
+  font-family:'Cinzel',serif;text-align:center;
+  text-transform:uppercase;
+}
+
+/* ── FLASH DE TRANSICIÓN ── */
+#transition-flash{
+  position:fixed;inset:0;z-index:100;
+  background:#0d1a0f;
+  opacity:0;pointer-events:none;
+  transition:opacity .15s;
+}
+#transition-flash.active{opacity:1;pointer-events:all}
+
+/* ── RIPPLE EN BOTÓN ── */
+.ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(201,168,76,.25);
+  transform:scale(0);
+  animation:rippleAnim .6s linear;
+  pointer-events:none;
+}
+@keyframes rippleAnim{
+  to{transform:scale(4);opacity:0}
+}
+
+/* ── CONTADOR DE CANDIDATOS VIVOS ── */
+.candidatos-bar{
+  display:flex;align-items:center;gap:8px;
+  margin-top:16px;padding:0 4px;
+}
+.candidatos-label{
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(201,168,76,.4);white-space:nowrap;
+}
+.candidatos-chips{
+  display:flex;flex-wrap:wrap;gap:4px;flex:1;
+}
+.candidato-chip{
+  font-size:10px;font-family:'Lato',sans-serif;
+  padding:3px 8px;border-radius:20px;
+  border:0.5px solid rgba(201,168,76,.2);
+  color:rgba(244,237,224,.4);
+  transition:all .4s ease;
+}
+.candidato-chip.top-3{
+  border-color:rgba(201,168,76,.5);
+  color:var(--oro);
+  background:rgba(201,168,76,.06);
+}
+
+/* SCROLL personalizado por si acaso */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#0d1a0f}
+::-webkit-scrollbar-thumb{background:var(--oro);border-radius:2px}
+
+/* ── PORTADA ── */
+#vista-portada{
+  position:fixed;inset:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  background:#060e07;
+  transition:opacity .8s ease;
+}
+#vista-portada.saliendo{opacity:0;pointer-events:none}
+.portada-inner{position:relative;width:100%;max-width:680px;cursor:none;}
+.portada-svg-wrap{
+  width:100%;border-radius:8px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.9),0 0 0 1px rgba(201,168,76,.15);
+}
+.portada-svg-wrap svg{display:block;width:100%}
+.portada-cta{
+  position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  animation:ctaPulse 2.4s ease-in-out infinite;
+}
+@keyframes ctaPulse{
+  0%,100%{opacity:.7;transform:translateX(-50%) translateY(0)}
+  50%{opacity:1;transform:translateX(-50%) translateY(-5px)}
+}
+.portada-btn{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:#0d1a0f;background:var(--oro);border:none;border-radius:4px;
+  padding:13px 36px;cursor:none;
+  box-shadow:0 4px 24px rgba(201,168,76,.4);
+  transition:background .2s,box-shadow .2s,transform .15s;
+}
+.portada-btn:hover{background:var(--oro-palido);box-shadow:0 6px 32px rgba(201,168,76,.6);transform:translateY(-2px)}
+.portada-hint{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.45);}
+.img-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;height:100%;}
+.loading-castle{font-size:40px;animation:castlePulse 1.4s ease-in-out infinite;}
+@keyframes castlePulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.9;transform:scale(1.06)}}
+.loading-text{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.5);}
+</style>
+</head>
+<body>
+
+<!-- ══ PORTADA ══ -->
+<div id="vista-portada">
+  <div class="portada-inner">
+    <div class="portada-svg-wrap">
+      <svg width="100%" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="psky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#060e07"/>
+            <stop offset="55%" stop-color="#0d1f10"/>
+            <stop offset="100%" stop-color="#1a3a1f"/>
+          </linearGradient>
+          <linearGradient id="pgold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8d5a3"/>
+            <stop offset="100%" stop-color="#c9a84c"/>
+          </linearGradient>
+          <linearGradient id="ptl" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1e3d22"/>
+            <stop offset="100%" stop-color="#0d1a0f"/>
+          </linearGradient>
+          <linearGradient id="ptr" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#223d26"/>
+            <stop offset="100%" stop-color="#0d1a0f"/>
+          </linearGradient>
+          <linearGradient id="phill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a1f"/>
+            <stop offset="100%" stop-color="#0a1a0c"/>
+          </linearGradient>
+          <linearGradient id="pfv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+            <stop offset="30%" stop-color="#c9a84c"/>
+            <stop offset="70%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="pfh" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+            <stop offset="20%" stop-color="#c9a84c"/>
+            <stop offset="80%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="pmoon" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f4ede0" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#f4ede0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="pcandle" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- SKY -->
+        <rect width="680" height="420" fill="url(#psky)"/>
+        <!-- BORDER -->
+        <rect x="18" y="18" width="644" height="384" rx="4" fill="none" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.35"/>
+        <rect x="24" y="24" width="632" height="372" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.2"/>
+        <!-- FRAME LINES -->
+        <line x1="30" y1="30" x2="80" y2="30" stroke="url(#pfh)" stroke-width="1"/>
+        <line x1="600" y1="30" x2="650" y2="30" stroke="url(#pfh)" stroke-width="1"/>
+        <line x1="30" y1="390" x2="80" y2="390" stroke="url(#pfh)" stroke-width="1"/>
+        <line x1="600" y1="390" x2="650" y2="390" stroke="url(#pfh)" stroke-width="1"/>
+        <line x1="30" y1="30" x2="30" y2="90" stroke="url(#pfv)" stroke-width="1"/>
+        <line x1="650" y1="30" x2="650" y2="90" stroke="url(#pfv)" stroke-width="1"/>
+        <line x1="30" y1="330" x2="30" y2="390" stroke="url(#pfv)" stroke-width="1"/>
+        <line x1="650" y1="330" x2="650" y2="390" stroke="url(#pfv)" stroke-width="1"/>
+        <!-- CORNER ORNAMENTS -->
+        <g fill="none" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.7">
+          <path d="M30 42 L30 30 L42 30"/><path d="M638 30 L650 30 L650 42"/>
+          <path d="M30 378 L30 390 L42 390"/><path d="M638 390 L650 390 L650 378"/>
+        </g>
+        <!-- MOON GLOW -->
+        <ellipse cx="340" cy="80" rx="90" ry="70" fill="url(#pmoon)"/>
+        <!-- MOON -->
+        <circle cx="340" cy="72" r="22" fill="#f0e6cc" opacity="0.92"/>
+        <circle cx="332" cy="66" r="18" fill="#0d1f10"/>
+        <!-- STARS -->
+        <g fill="#f4ede0">
+          <circle cx="80" cy="55" r="1.2" opacity="0.9"/>
+          <circle cx="145" cy="40" r="0.9" opacity="0.7"/>
+          <circle cx="200" cy="68" r="1.4" opacity="0.8"/>
+          <circle cx="265" cy="45" r="0.8" opacity="0.6"/>
+          <circle cx="420" cy="48" r="1.1" opacity="0.85"/>
+          <circle cx="480" cy="35" r="1.5" opacity="0.9"/>
+          <circle cx="540" cy="60" r="0.9" opacity="0.7"/>
+          <circle cx="600" cy="44" r="1.2" opacity="0.8"/>
+          <circle cx="108" cy="90" r="0.7" opacity="0.5"/>
+          <circle cx="170" cy="100" r="1.0" opacity="0.6"/>
+          <circle cx="500" cy="90" r="0.8" opacity="0.55"/>
+          <circle cx="575" cy="80" r="1.1" opacity="0.65"/>
+          <circle cx="620" cy="95" r="0.7" opacity="0.5"/>
+          <circle cx="60" cy="110" r="0.8" opacity="0.45"/>
+          <circle cx="230" cy="88" r="0.6" opacity="0.5"/>
+        </g>
+        <!-- STAR CROSS ACCENT -->
+        <g fill="#c9a84c" opacity="0.7">
+          <path d="M115 60 L116.2 63 L119.5 63 L116.8 65 L118 68 L115 66.2 L112 68 L113.2 65 L110.5 63 L113.8 63Z"/>
+          <path d="M565 52 L566 54.5 L568.5 54.5 L566.5 56 L567.3 58.5 L565 57 L562.7 58.5 L563.5 56 L561.5 54.5 L564 54.5Z"/>
+        </g>
+        <!-- HILLS -->
+        <ellipse cx="340" cy="390" rx="380" ry="130" fill="url(#phill)"/>
+        <ellipse cx="120" cy="400" rx="180" ry="90" fill="#0d1a0f"/>
+        <ellipse cx="560" cy="405" rx="180" ry="85" fill="#0a1a0c"/>
+        <!-- TREES LEFT -->
+        <g fill="#0d1a0f">
+          <path d="M55 310 L65 260 L75 310Z"/><path d="M62 310 L70 248 L78 310Z"/>
+          <rect x="67" y="305" width="6" height="20" rx="1"/>
+          <path d="M82 310 L90 270 L98 310Z"/>
+          <rect x="88" y="305" width="5" height="18" rx="1"/>
+          <path d="M100 320 L107 282 L114 320Z"/>
+          <rect x="105" y="315" width="5" height="15" rx="1"/>
+        </g>
+        <!-- TREES RIGHT -->
+        <g fill="#0a1a0c">
+          <path d="M570 315 L578 272 L586 315Z"/>
+          <rect x="576" y="310" width="5" height="18" rx="1"/>
+          <path d="M588 310 L597 260 L606 310Z"/>
+          <rect x="594" y="305" width="6" height="20" rx="1"/>
+          <path d="M606 318 L613 278 L620 318Z"/>
+          <rect x="611" y="313" width="5" height="16" rx="1"/>
+        </g>
+        <!-- CASTLE WALL -->
+        <rect x="190" y="260" width="300" height="140" rx="2" fill="url(#ptl)"/>
+        <!-- BATTLEMENTS -->
+        <g fill="#1e3d22">
+          <rect x="190" y="252" width="22" height="16" rx="1"/>
+          <rect x="218" y="252" width="22" height="16" rx="1"/>
+          <rect x="246" y="252" width="22" height="16" rx="1"/>
+          <rect x="274" y="252" width="22" height="16" rx="1"/>
+          <rect x="302" y="252" width="22" height="16" rx="1"/>
+          <rect x="330" y="252" width="22" height="16" rx="1"/>
+          <rect x="358" y="252" width="22" height="16" rx="1"/>
+          <rect x="386" y="252" width="22" height="16" rx="1"/>
+          <rect x="414" y="252" width="22" height="16" rx="1"/>
+          <rect x="442" y="252" width="22" height="16" rx="1"/>
+          <rect x="470" y="252" width="22" height="16" rx="1"/>
+        </g>
+        <!-- LEFT TOWER -->
+        <rect x="155" y="200" width="70" height="200" rx="2" fill="url(#ptl)"/>
+        <g fill="#1a3020">
+          <rect x="155" y="192" width="16" height="14" rx="1"/>
+          <rect x="176" y="192" width="16" height="14" rx="1"/>
+          <rect x="197" y="192" width="16" height="14" rx="1"/>
+          <rect x="218" y="192" width="7" height="14" rx="1"/>
+        </g>
+        <rect x="180" y="230" width="20" height="28" rx="2" fill="#0d1a0f"/>
+        <path d="M180 244 Q190 234 200 244" fill="#0d1a0f"/>
+        <rect x="180" y="280" width="20" height="26" rx="2" fill="#0d1a0f"/>
+        <rect x="180" y="230" width="20" height="28" rx="2" fill="#c9a84c" opacity="0.08"/>
+        <!-- RIGHT TOWER -->
+        <rect x="455" y="200" width="70" height="200" rx="2" fill="url(#ptr)"/>
+        <g fill="#1e3d26">
+          <rect x="455" y="192" width="16" height="14" rx="1"/>
+          <rect x="476" y="192" width="16" height="14" rx="1"/>
+          <rect x="497" y="192" width="16" height="14" rx="1"/>
+          <rect x="518" y="192" width="7" height="14" rx="1"/>
+        </g>
+        <rect x="480" y="230" width="20" height="28" rx="2" fill="#0d1a0f"/>
+        <path d="M480 244 Q490 234 500 244" fill="#0d1a0f"/>
+        <rect x="480" y="280" width="20" height="26" rx="2" fill="#0d1a0f"/>
+        <rect x="480" y="230" width="20" height="28" rx="2" fill="#c9a84c" opacity="0.07"/>
+        <!-- CENTER TOWER -->
+        <rect x="280" y="155" width="120" height="245" rx="2" fill="#1a3a1f"/>
+        <g fill="#1e3d22">
+          <rect x="280" y="146" width="18" height="15" rx="1"/>
+          <rect x="303" y="146" width="18" height="15" rx="1"/>
+          <rect x="326" y="146" width="18" height="15" rx="1"/>
+          <rect x="349" y="146" width="18" height="15" rx="1"/>
+          <rect x="372" y="146" width="8" height="15" rx="1"/>
+        </g>
+        <rect x="310" y="180" width="24" height="34" rx="2" fill="#0a1a0c"/>
+        <path d="M310 198 Q322 186 334 198" fill="#0a1a0c"/>
+        <rect x="346" y="180" width="24" height="34" rx="2" fill="#0a1a0c"/>
+        <path d="M346 198 Q358 186 370 198" fill="#0a1a0c"/>
+        <rect x="310" y="180" width="24" height="34" rx="2" fill="#c9a84c" opacity="0.14"/>
+        <rect x="346" y="180" width="24" height="34" rx="2" fill="#c9a84c" opacity="0.11"/>
+        <path d="M316 400 L316 310 Q340 292 364 310 L364 400Z" fill="#0a1a0c"/>
+        <rect x="310" y="240" width="24" height="36" rx="2" fill="#0a1a0c"/>
+        <path d="M310 260 Q322 247 334 260" fill="#0a1a0c"/>
+        <rect x="346" y="240" width="24" height="36" rx="2" fill="#0a1a0c"/>
+        <path d="M346 260 Q358 247 370 260" fill="#0a1a0c"/>
+        <!-- FLAG -->
+        <line x1="340" y1="147" x2="340" y2="118" stroke="#c9a84c" stroke-width="1.2"/>
+        <path d="M340 118 L360 124 L340 130Z" fill="#c9a84c"/>
+        <!-- CANDLE GLOW -->
+        <ellipse cx="340" cy="210" rx="120" ry="80" fill="url(#pcandle)"/>
+        <!-- WALL SEAMS -->
+        <g stroke="#0a1a0c" stroke-width="0.4" opacity="0.5">
+          <line x1="190" y1="290" x2="490" y2="290"/>
+          <line x1="190" y1="320" x2="490" y2="320"/>
+          <line x1="190" y1="350" x2="490" y2="350"/>
+          <line x1="155" y1="235" x2="225" y2="235"/>
+          <line x1="455" y1="235" x2="525" y2="235"/>
+          <line x1="280" y1="210" x2="400" y2="210"/>
+        </g>
+        <!-- TITLE BANNER -->
+        <rect x="100" y="56" width="480" height="56" rx="3" fill="#0d1a0f" opacity="0.6"/>
+        <line x1="100" y1="57" x2="580" y2="57" stroke="url(#pfh)" stroke-width="0.8"/>
+        <line x1="100" y1="111" x2="580" y2="111" stroke="url(#pfh)" stroke-width="0.8"/>
+        <text x="340" y="95" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="600" letter-spacing="3" fill="url(#pgold)">Descubre tu Parador</text>
+        <!-- SUBTITLE -->
+        <rect x="220" y="116" width="240" height="30" rx="2" fill="#c9a84c" opacity="0.08"/>
+        <line x1="220" y1="117" x2="460" y2="117" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+        <line x1="220" y1="145" x2="460" y2="145" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+        <text x="340" y="136" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="5" fill="#c9a84c" opacity="0.9">IDEAL</text>
+        <!-- DIVIDER -->
+        <line x1="130" y1="152" x2="300" y2="152" stroke="#c9a84c" stroke-width="0.5" opacity="0.45"/>
+        <line x1="380" y1="152" x2="550" y2="152" stroke="#c9a84c" stroke-width="0.5" opacity="0.45"/>
+        <path d="M330 148 L340 152 L350 148 L340 144Z" fill="#c9a84c" opacity="0.8"/>
+        <!-- BOTTOM TAGLINE -->
+        <rect x="170" y="356" width="340" height="40" rx="3" fill="#0d1a0f" opacity="0.75"/>
+        <line x1="170" y1="357" x2="510" y2="357" stroke="url(#pfh)" stroke-width="0.7"/>
+        <line x1="170" y1="395" x2="510" y2="395" stroke="url(#pfh)" stroke-width="0.7"/>
+        <text x="340" y="374" text-anchor="middle" font-family="Georgia, serif" font-size="11" letter-spacing="3" fill="#c9a84c" opacity="0.75">TEST DE AFINIDAD PATRIMONIAL</text>
+        <text x="340" y="388" text-anchor="middle" font-family="Georgia, serif" font-size="10" letter-spacing="2" fill="#f4ede0" opacity="0.4">WTM LATIN AMERICA · SÃO PAULO 2027</text>
+        <!-- BOTTOM ORNAMENT -->
+        <path d="M260 404 Q280 398 300 404 Q320 410 340 404 Q360 398 380 404 Q400 410 420 404" fill="none" stroke="#c9a84c" stroke-width="0.6" opacity="0.5"/>
+        <path d="M148 404 L155 410 L162 404 L155 398Z" fill="#c9a84c" opacity="0.5"/>
+        <path d="M518 404 L525 410 L532 404 L525 398Z" fill="#c9a84c" opacity="0.5"/>
+      </svg>
+    </div>
+    <!-- CTA BUTTON -->
+    <div class="portada-cta">
+      <button class="portada-btn" onclick="iniciarDesdePortada()">Comenzar el test</button>
+      <span class="portada-hint">10 preguntas &nbsp;·&nbsp; 2 minutos</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- FONDO -->
+<div id="bg-canvas"></div>
+<div class="deco-lines"></div>
+<div class="particles" id="particles"></div>
+
+<!-- FLASH DE TRANSICIÓN -->
+<div id="transition-flash"></div>
+
+<div id="app">
+  <div class="panel" id="panel">
+
+    <!-- CABECERA -->
+    <div class="cabecera">
+      <div class="logo-escudo">Paradores de Turismo · WTM Latin America 2027</div>
+      <div class="titulo-app">Descubre tu <em>Parador</em> ideal</div>
+      <div class="subtitulo-app">Test de afinidad patrimonial</div>
+    </div>
+
+    <!-- PROGRESO -->
+    <div class="progreso-wrap">
+      <span class="progreso-label" id="progreso-label">1 / 10</span>
+      <div class="progreso-track">
+        <div class="progreso-fill" id="progreso-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA -->
+    <div id="vista-pregunta">
+      <div class="tarjeta-pregunta" id="tarjeta">
+        <div class="num-pregunta" id="num-grande">01</div>
+        <div class="texto-pregunta" id="texto-pregunta"></div>
+        <div class="opciones-grid" id="opciones"></div>
+      </div>
+      <div class="candidatos-bar">
+        <span class="candidatos-label">En juego</span>
+        <div class="candidatos-chips" id="chips-candidatos"></div>
+      </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="vista-resultado" style="display:none">
+      <div class="tarjeta-pregunta resultado-container" id="tarjeta-resultado">
+        <div class="resultado-badge">Tu Parador Ideal</div>
+        <div class="resultado-imagen-wrap">
+          <img id="resultado-img" class="resultado-img" src="" alt="">
+          <div id="resultado-img-fallback" class="resultado-img-fallback" style="display:none">🏰</div>
+          <div class="resultado-nombre-wrap">
+            <div class="resultado-nombre" id="resultado-nombre"></div>
+          </div>
+        </div>
+        <div class="resultado-body">
+          <div class="resultado-etiqueta" id="resultado-etiqueta">Destino patrimonial recomendado</div>
+          <div class="resultado-desc" id="resultado-desc"></div>
+          <div class="resultado-acciones">
+            <button class="btn-reiniciar" onclick="reiniciar()">Nueva búsqueda</button>
+            <button class="btn-info" onclick="verWeb()">Ver en parador.es ↗</button>
+          </div>
+          <div class="nota-feria">· Muestra esta pantalla en el stand para recibir la ficha B2B ·</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+function animTrail(){
+  tx+=(mx-tx)*.12; ty+=(my-ty)*.12;
+  trail.style.left=tx+'px'; trail.style.top=ty+'px';
+  requestAnimationFrame(animTrail);
+}
+animTrail();
+
+/* ── PARTÍCULAS ── */
+const pWrap = document.getElementById('particles');
+for(let i=0;i<22;i++){
+  const p = document.createElement('div');
+  p.className='particle';
+  const size = Math.random()*3+1;
+  const hue = Math.random()>.6?'rgba(201,168,76,':'rgba(74,148,84,';
+  p.style.cssText=`
+    width:${size}px;height:${size}px;
+    background:${hue}${Math.random()*.6+.2});
+    left:${Math.random()*100}%;
+    animation-duration:${Math.random()*20+15}s;
+    animation-delay:${Math.random()*-20}s;
+    ${size>2?'box-shadow:0 0 6px '+hue+'0.4)':''}
+  `;
+  pWrap.appendChild(p);
+}
+
+/* ── DATOS ── */
+const baseDatosParadores = [
+  {nombre:"Parador de Aiguablava",region:"Girona",desc:"Sobre los acantilados de la Costa Brava con vistas al Mediterráneo.",costa:1,naturaleza:1,relax:1,vanguardia:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/PdAiguablava.jpg/1280px-PdAiguablava.jpg"},
+  {nombre:"Parador de Alarcón",region:"Cuenca",desc:"Fortaleza árabe del siglo VIII rodeada por el río Júcar en un meandro casi perfecto.",fortaleza:1,historia:1,naturaleza:1,img:""},
+  {nombre:"Parador de Almagro",region:"Ciudad Real",desc:"Convento renacentista del siglo XVI en el corazón de La Mancha cervantina.",convento:1,ciudad:1,historia:1,gastro:1,img:""},
+  {nombre:"Parador de Arcos de la Frontera",region:"Cádiz",desc:"Desde lo alto de una roca sobre el río Guadalete, domina el Pueblo Blanco más espectacular de Andalucía.",palacio:1,ciudad:1,historia:1,img:""},
+  {nombre:"Parador de Baiona",region:"Pontevedra",desc:"Fortaleza medieval del siglo XIII en la Ría de Vigo, donde llegaron las primeras noticias de América.",fortaleza:1,costa:1,historia:1,relax:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Baiona_-_Monterreal_02.jpg/1280px-Baiona_-_Monterreal_02.jpg"},
+  {nombre:"Parador de Cáceres",region:"Extremadura",desc:"Palacio renacentista en el casco histórico declarado Patrimonio de la Humanidad.",palacio:1,ciudad:1,historia:1,vanguardia:1,img:""},
+  {nombre:"Parador de Cádiz",region:"Andalucía",desc:"Diseño contemporáneo frente al océano Atlántico. El único parador con vistas al mar de Cádiz.",vanguardia:1,costa:1,ciudad:1,relax:1,gastro:1,img:""},
+  {nombre:"Parador de Cangas de Onís",region:"Asturias",desc:"Monasterio benedictino del siglo XI a orillas del Sella, puerta de los Picos de Europa.",convento:1,montana:1,naturaleza:1,historia:1,gastro:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Parador_de_Cangas_de_On%C3%ADs._Espa%C3%B1a.jpg/1280px-Parador_de_Cangas_de_On%C3%ADs._Espa%C3%B1a.jpg"},
+  {nombre:"Parador de Cardona",region:"Cataluña",desc:"Castillo carolingio del siglo IX sobre una montaña de sal única en el mundo.",fortaleza:1,gotico:1,montana:1,historia:1,img:""},
+  {nombre:"Parador de Carmona",region:"Sevilla",desc:"Fortaleza árabe-cristiana del siglo XIV elevada sobre la llanura sevillana.",fortaleza:1,ciudad:1,historia:1,gastro:1,img:""},
+  {nombre:"Parador de Chinchón",region:"Madrid",desc:"Convento de Agustinos del siglo XVII con jardín interior en el corazón del pueblo más pintoresco de Madrid.",convento:1,ciudad:1,historia:1,gastro:1,img:""},
+  {nombre:"Parador de Cuenca",region:"Castilla-La Mancha",desc:"Convento dominico del siglo XV colgado literalmente sobre el tajo del río Huécar.",convento:1,ciudad:1,naturaleza:1,historia:1,img:""},
+  {nombre:"Parador de El Saler",region:"Valencia",desc:"Arquitectura moderna entre la Albufera y el mar. Playa privada y golf.",costa:1,vanguardia:1,relax:1,gastro:1,img:""},
+  {nombre:"Parador de Granada",region:"Andalucía",desc:"El único hotel del mundo enclavado en la Alhambra. Antiguo convento de San Francisco donde están enterrados los Reyes Católicos.",convento:1,ciudad:1,gotico:1,historia:1,gastro:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Alhambra_evening_panorama_Mirador_San_Nicolas_sRGB-1.jpg/1280px-Alhambra_evening_panorama_Mirador_San_Nicolas_sRGB-1.jpg"},
+  {nombre:"Parador de Guadalupe",region:"Extremadura",desc:"Hospedería del Real Monasterio del siglo XV, declarado Patrimonio de la Humanidad.",convento:1,gotico:1,ciudad:1,historia:1,img:""},
+  {nombre:"Parador de Hondarribia",region:"País Vasco",desc:"Castillo del siglo X en la bahía de Txingudi. Capital de la alta gastronomía vasca.",fortaleza:1,costa:1,historia:1,gastro:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hondarribia_Castillo_Carlos_V.jpg/1280px-Hondarribia_Castillo_Carlos_V.jpg"},
+  {nombre:"Parador de Jaén",region:"Andalucía",desc:"Castillo árabe del siglo XIII en la cima del cerro de Santa Catalina. Vistas de 360° sobre Sierra Morena.",fortaleza:1,ciudad:1,historia:1,gastro:1,img:""},
+  {nombre:"Parador de León",region:"Castilla y León",desc:"El Hostal de San Marcos: obra maestra del plateresco español, fundado en 1168 como hospital de peregrinos.",palacio:1,convento:1,gotico:1,ciudad:1,historia:1,gastro:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Hostal_San_Marcos_de_Le%C3%B3n.jpg/1280px-Hostal_San_Marcos_de_Le%C3%B3n.jpg"},
+  {nombre:"Parador de Mazagón",region:"Huelva",desc:"Entre los pinares y las dunas de la Costa de la Luz, con acceso a Doñana.",costa:1,naturaleza:1,relax:1,img:""},
+  {nombre:"Parador de Mérida",region:"Extremadura",desc:"Convento del siglo XVII sobre un antiguo templo romano. En el centro de la ciudad más romana de España.",convento:1,ciudad:1,historia:1,img:""},
+  {nombre:"Parador de Nerja",region:"Málaga",desc:"Sobre los acantilados mediterráneos con piscina desbordante al mar y acceso a calas vírgenes.",costa:1,relax:1,img:""},
+  {nombre:"Parador de Olite",region:"Navarra",desc:"En el interior del castillo-palacio medieval más espectacular de España.",fortaleza:1,gotico:1,ciudad:1,historia:1,img:""},
+  {nombre:"Parador de Ronda",region:"Málaga",desc:"En el borde mismo del Tajo de Ronda: el abismo de 100 metros y el Puente Nuevo como telón de fondo.",ciudad:1,naturaleza:1,vanguardia:1,historia:1,gastro:1,img:""},
+  {nombre:"Parador de Salamanca",region:"Castilla y León",desc:"Diseño moderno con vistas panorámicas a la ciudad universitaria más bella de España.",ciudad:1,vanguardia:1,historia:1,img:""},
+  {nombre:"Parador de Santiago de Compostela",region:"Galicia",desc:"El hotel más antiguo del mundo en funcionamiento, fundado en 1499 por los Reyes Católicos para hospedar peregrinos.",palacio:1,convento:1,gotico:1,ciudad:1,historia:1,gastro:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Hostal_de_los_Reyes_Cat%C3%B3licos.jpg/1280px-Hostal_de_los_Reyes_Cat%C3%B3licos.jpg"},
+  {nombre:"Parador de Sigüenza",region:"Guadalajara",desc:"Castillo-fortaleza del siglo XII que domina la ciudad episcopal desde lo alto de la colina.",fortaleza:1,gotico:1,ciudad:1,historia:1,img:""},
+  {nombre:"Parador de Santo Estevo",region:"Galicia",desc:"Monasterio benedictino del siglo VI en el corazón del cañón del Sil, entre viñedos y robledales.",convento:1,gotico:1,naturaleza:1,historia:1,relax:1,img:""},
+  {nombre:"Parador de Toledo",region:"Castilla-La Mancha",desc:"Edificio de arquitectura regional desde el que se divisa el panorama eterno del Toledo de El Greco.",palacio:1,gotico:1,ciudad:1,relax:1,gastro:1,img:""},
+  {nombre:"Parador de Úbeda",region:"Jaén",desc:"Palacio renacentista del siglo XVI en el corazón de una ciudad Patrimonio de la Humanidad.",palacio:1,ciudad:1,historia:1,gastro:1,img:""},
+  {nombre:"Parador de Vielha",region:"Lleida",desc:"En el Valle de Arán, rodeado de picos pirenaicos y nieve. Esquí, senderismo y cielos estrellados.",montana:1,naturaleza:1,relax:1,img:""}
+];
+
+const preguntas = [
+  {pregunta:"¿Qué entorno te llama más para este viaje?",opciones:[
+    {texto:"Las olas, la brisa y el horizonte marino",a:"costa",p:5},
+    {texto:"Picos nevados y valles de silencio",a:"montana",p:5},
+    {texto:"Calles empedradas y siglos de historia",a:"ciudad",p:5},
+    {texto:"Bosques, ríos y naturaleza sin límite",a:"naturaleza",p:5}
+  ]},
+  {pregunta:"¿En qué tipo de edificio quieres alojarte?",opciones:[
+    {texto:"Una fortaleza inexpugnable con torreones",a:"fortaleza",p:5},
+    {texto:"Un claustro monástico de siglos de silencio",a:"convento",p:5},
+    {texto:"Los salones dorados de un gran palacio",a:"palacio",p:5},
+    {texto:"Arquitectura contemporánea que dialoga con el paisaje",a:"vanguardia",p:5}
+  ]},
+  {pregunta:"¿Qué buscas ante todo en este viaje?",opciones:[
+    {texto:"Comer los mejores productos de la tierra",a:"gastro",p:5},
+    {texto:"Descansar hasta olvidar la rutina",a:"relax",p:5},
+    {texto:"Vivir dentro de la Historia con mayúscula",a:"historia",p:5}
+  ]},
+  {pregunta:"¿Qué detalle arquitectónico te fascina?",opciones:[
+    {texto:"Arcos apuntados, vidrieras y bóvedas de crucería",a:"gotico",p:5},
+    {texto:"Muros de metro y medio y saeteras en la roca",a:"fortaleza",p:5},
+    {texto:"Patios con fuentes y yeserías árabes",a:"historia",p:5},
+    {texto:"Cristal, acero y diseño del siglo XXI",a:"vanguardia",p:5}
+  ]},
+  {pregunta:"¿Con quién compartes la escapada?",opciones:[
+    {texto:"En pareja, buscando romanticismo y privacidad",a:"relax",p:5},
+    {texto:"Con la familia: planes para todos",a:"naturaleza",p:5},
+    {texto:"Solo/a, a mi propio ritmo",a:"historia",p:5}
+  ]},
+  {pregunta:"Al caer la tarde, el plan perfecto es...",opciones:[
+    {texto:"Tomar un vino con vista al monumento",a:"gastro",p:5},
+    {texto:"Una ruta de senderismo o baño en el mar",a:"naturaleza",p:5},
+    {texto:"Una visita guiada con historias de siglos",a:"historia",p:5},
+    {texto:"Relax total: spa, lectura y silencio",a:"relax",p:5}
+  ]},
+  {pregunta:"¿Qué clima prefieres para el viaje?",opciones:[
+    {texto:"Sol y calor mediterráneo o atlántico",a:"costa",p:5},
+    {texto:"Frío, niebla y chimenea encendida",a:"montana",p:5},
+    {texto:"Templado, ideal para explorar a pie",a:"ciudad",p:5}
+  ]},
+  {pregunta:"¿Qué vista quieres al despertar?",opciones:[
+    {texto:"El océano o el mar a los pies",a:"costa",p:5},
+    {texto:"Un castillo, una catedral o un claustro",a:"gotico",p:5},
+    {texto:"Valles verdes y cimas nevadas",a:"montana",p:5},
+    {texto:"La ciudad histórica brillando al amanecer",a:"ciudad",p:5}
+  ]},
+  {pregunta:"¿Qué recuerdo quieres llevarte?",opciones:[
+    {texto:"Haber probado un plato que nunca olvidaré",a:"gastro",p:5},
+    {texto:"Haber dormido dentro de la Historia",a:"historia",p:5},
+    {texto:"Volver con las pilas cargadas al máximo",a:"relax",p:5}
+  ]},
+  {pregunta:"Una última pregunta: ¿qué te define como viajero/a?",opciones:[
+    {texto:"El explorador curioso que busca autenticidad",a:"historia",p:5},
+    {texto:"El hedonista que vive para los placeres",a:"gastro",p:5},
+    {texto:"El aventurero que necesita naturaleza salvaje",a:"naturaleza",p:5},
+    {texto:"El esteta que busca la belleza en cada rincón",a:"gotico",p:5}
+  ]}
+];
+
+let pregIdx=0;
+let perfil={costa:0,montana:0,ciudad:0,naturaleza:0,gotico:0,convento:0,palacio:0,vanguardia:0,fortaleza:0,relax:0,gastro:0,historia:0};
+
+function pct(){ return Math.round((pregIdx/preguntas.length)*100); }
+
+function calcRanking(){
+  return baseDatosParadores.map(p=>{
+    let s=0;
+    for(let k in perfil){ if(p[k]) s+=perfil[k]; }
+    return {...p,score:s};
+  }).sort((a,b)=>b.score-a.score);
+}
+
+function renderChips(){
+  const top5 = calcRanking().slice(0,5);
+  const all = calcRanking();
+  const el = document.getElementById('chips-candidatos');
+  el.innerHTML = top5.map((p,i)=>{
+    const short = p.nombre.replace('Parador de ','').replace('Parador del ','');
+    return `<span class="candidato-chip ${i<3?'top-3':''}">${short}</span>`;
+  }).join('');
+}
+
+function addRipple(btn,e){
+  const r=document.createElement('div');
+  r.className='ripple';
+  const rect=btn.getBoundingClientRect();
+  const size=Math.max(rect.width,rect.height)*2;
+  r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  btn.appendChild(r);
+  setTimeout(()=>r.remove(),700);
+}
+
+function mostrarPregunta(){
+  const datos = preguntas[pregIdx];
+  document.getElementById('num-grande').textContent = String(pregIdx+1).padStart(2,'0');
+  document.getElementById('texto-pregunta').textContent = datos.pregunta;
+  document.getElementById('progreso-label').textContent = `${pregIdx+1} / ${preguntas.length}`;
+  document.getElementById('progreso-fill').style.width = pct()+'%';
+
+  const grid = document.getElementById('opciones');
+  grid.innerHTML='';
+  const letras = ['A','B','C','D'];
+  datos.opciones.forEach((op,i)=>{
+    const btn = document.createElement('button');
+    btn.className='boton-opcion';
+    btn.innerHTML=`<span class="opt-marker">${letras[i]}</span>${op.texto}`;
+    btn.style.animationDelay=(i*.06)+'s';
+    btn.style.opacity='0';
+    btn.style.animation=`slideInRight .4s cubic-bezier(.16,1,.3,1) ${i*.07}s forwards`;
+    btn.addEventListener('click',function(e){
+      addRipple(btn,e);
+      const todos = grid.querySelectorAll('.boton-opcion');
+      todos.forEach(x=>{ x.style.pointerEvents='none'; });
+      btn.classList.add('opcion-elegida');
+      todos.forEach(x=>{ if(x!==btn) x.classList.add('opcion-rechazada'); });
+      perfil[op.a]+=op.p;
+      setTimeout(()=>{
+        pregIdx++;
+        if(pregIdx>=preguntas.length){
+          transicionResultado();
+        } else {
+          const tarjeta = document.getElementById('tarjeta');
+          tarjeta.classList.add('slide-out');
+          setTimeout(()=>{
+            tarjeta.classList.remove('slide-out');
+            mostrarPregunta();
+            tarjeta.classList.add('slide-in');
+            setTimeout(()=>tarjeta.classList.remove('slide-in'),500);
+          },350);
+        }
+        renderChips();
+      },600);
+    });
+    grid.appendChild(btn);
+  });
+
+  renderChips();
+}
+
+function transicionResultado(){
+  const flash = document.getElementById('transition-flash');
+  flash.classList.add('active');
+  setTimeout(()=>{
+    mostrarResultado();
+    flash.style.transition='opacity .5s';
+    flash.classList.remove('active');
+    setTimeout(()=>{flash.style.transition='opacity .15s'},600);
+  },300);
+}
+
+const DESCRIPCIONES_EXTRA = {
+  "Parador de Granada":"Una noche dentro de la Alhambra. No hay lista de espera para el sueño.",
+  "Parador de Santiago de Compostela":"El hotel más antiguo del mundo en uso. El Camino termina —o empieza— aquí.",
+  "Parador de León":"La fachada plateresca más larga de Europa. Un libro de piedra abierto ante ti.",
+  "Parador de Hondarribia":"La alta gastronomía vasca a un paso. El castillo, el mar y el pintxo perfecto.",
+  "Parador de Cangas de Onís":"Los Picos de Europa como fondo. El Sella a los pies. La naturaleza más salvaje.",
+  "Parador de Baiona":"Donde las noticias de América llegaron por primera vez. La Ría de Vigo abraza sus murallas.",
+};
+
+function mostrarResultado(){
+  document.getElementById('vista-pregunta').style.display='none';
+  document.getElementById('vista-resultado').style.display='block';
+  document.getElementById('progreso-fill').style.width='100%';
+  document.getElementById('progreso-label').textContent='✦ Resultado';
+
+  const ranking = calcRanking();
+  const g = ranking[0];
+
+  document.getElementById('resultado-nombre').textContent = g.nombre;
+  const desc = DESCRIPCIONES_EXTRA[g.nombre] || g.desc || 'Un rincón del patrimonio español que encaja perfectamente con tu forma de viajar.';
+  document.getElementById('resultado-desc').textContent = desc;
+
+  const etiquetas = [];
+  if(g.costa||g.naturaleza) etiquetas.push('Naturaleza & paisaje');
+  if(g.historia||g.gotico) etiquetas.push('Patrimonio histórico');
+  if(g.gastro) etiquetas.push('Gastronomía de autor');
+  if(g.relax) etiquetas.push('Descanso & bienestar');
+  if(g.fortaleza||g.palacio||g.convento) etiquetas.push('Arquitectura monumental');
+  document.getElementById('resultado-etiqueta').textContent = etiquetas.slice(0,2).join(' · ') || 'Destino patrimonial recomendado';
+
+  const img = document.getElementById('resultado-img');
+  const fallback = document.getElementById('resultado-img-fallback');
+  if(g.img){
+    img.src=g.img;
+    img.style.display='block';
+    fallback.style.display='none';
+    img.onerror=()=>{ img.style.display='none'; fallback.style.display='flex'; };
+  } else {
+    img.style.display='none';
+    fallback.style.display='flex';
+  }
+
+  window._resultadoActual = g;
+}
+
+function verWeb(){
+  const nombre = window._resultadoActual?.nombre || '';
+  const slug = nombre.toLowerCase().replace('parador de ','').replace('parador del ','').replace(/ /g,'-').normalize('NFD').replace(/[̀-ͯ]/g,'');
+  window.open(`https://www.parador.es/es/paradores/parador-de-${slug}`,'_blank');
+}
+
+function reiniciar(){
+  pregIdx=0;
+  for(let k in perfil) perfil[k]=0;
+  const flash = document.getElementById('transition-flash');
+  flash.classList.add('active');
+  setTimeout(()=>{
+    document.getElementById('vista-resultado').style.display='none';
+    document.getElementById('vista-pregunta').style.display='block';
+    mostrarPregunta();
+    flash.style.transition='opacity .5s';
+    flash.classList.remove('active');
+    setTimeout(()=>flash.style.transition='opacity .15s',600);
+  },300);
+}
+
+
+/* ── PORTADA ── */
+function iniciarDesdePortada(){
+  const portada = document.getElementById('vista-portada');
+  portada.classList.add('saliendo');
+  setTimeout(()=>{ portada.style.display='none'; },800);
+}
+
+mostrarPregunta();
+</script>
+</body>
+</html>
